@@ -1,7 +1,7 @@
 package com.ubs.opsit.interviews.support;
 
 import org.apache.commons.io.filefilter.DirectoryFileFilter;
-import org.apache.commons.io.filefilter.WildcardFileFilter;
+import org.apache.commons.io.filefilter.RegexFileFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +23,7 @@ public final class ClasspathStoryFinder {
     private static final Logger LOG = LoggerFactory.getLogger(ClasspathStoryFinder.class);
 
     public static List<String> findFilenamesThatMatch(String aFilenameWithWildcards) {
-        List<String> filenames = new ArrayList<String>();
+        List<String> filenames = new ArrayList<>();
         for (File file : findFilesThatMatch(aFilenameWithWildcards)) {
             filenames.add(file.toURI().toString());
         }
@@ -31,11 +31,11 @@ public final class ClasspathStoryFinder {
     }
 
     private static Collection<File> findFilesThatMatch(String aFilenameWithWildcards) {
-        WildcardFileFilter regexFileFilter = new WildcardFileFilter(aFilenameWithWildcards);
+        RegexFileFilter regexFileFilter = new RegexFileFilter(aFilenameWithWildcards);
         List<File> rootDirsToSearchFrom = getRootDirs();
         LOG.info("Searching for stories called [{}] in [{}]", aFilenameWithWildcards, rootDirsToSearchFrom);
 
-        List<File> ret = new ArrayList<File>() ;
+        List<File> ret = new ArrayList<>() ;
         for (File f : rootDirsToSearchFrom) {
             ret.addAll(listFiles(f, regexFileFilter, DirectoryFileFilter.DIRECTORY)) ;
         }
@@ -43,7 +43,7 @@ public final class ClasspathStoryFinder {
     }
 
     private static List<File> getRootDirs() {
-        List<File> ret = new ArrayList<File>() ;
+        List<File> ret = new ArrayList<>() ;
         try {
             Enumeration<URL> roots = ClasspathStoryFinder.class.getClassLoader().getResources("") ;
             while(roots.hasMoreElements()) {

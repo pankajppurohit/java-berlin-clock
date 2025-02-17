@@ -9,13 +9,13 @@ import org.jbehave.core.reporters.StoryReporterBuilder;
 import org.jbehave.core.steps.InjectableStepsFactory;
 import org.jbehave.core.steps.InstanceStepsFactory;
 import org.jbehave.core.steps.ParameterConverters;
+import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.jbehave.core.io.CodeLocations.codeLocationFromClass;
 import static org.jbehave.core.reporters.Format.CONSOLE;
 import static org.jbehave.core.reporters.Format.HTML;
@@ -42,7 +42,7 @@ public final class BehaviouralTestEmbedder extends ConfigurableEmbedder {
     }
 
     @Override
-    public void run() throws Exception {
+    public void run() {
         List<String> paths = createStoryPaths();
         if (paths == null || paths.isEmpty()) {
             throw new IllegalStateException("No story paths found for state machine");
@@ -53,7 +53,7 @@ public final class BehaviouralTestEmbedder extends ConfigurableEmbedder {
 
     @Override
     public InjectableStepsFactory stepsFactory() {
-        assertThat(stepsFactory).isNotNull();
+        Assertions.assertNotNull(stepsFactory);
         return stepsFactory;
     }
 
@@ -74,7 +74,7 @@ public final class BehaviouralTestEmbedder extends ConfigurableEmbedder {
     }
 
     public BehaviouralTestEmbedder usingStepsFrom(Object... stepsSource) {
-        assertThat(stepsFactory).isNull();
+        Assertions.assertNull(stepsFactory);
         stepsFactory = new InstanceStepsFactory(configuration(), stepsSource);
         return this;
     }
