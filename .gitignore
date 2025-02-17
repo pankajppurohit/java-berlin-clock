@@ -1,0 +1,36 @@
+### Gradle files ###
+.gradle/
+build/
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+
+### IntelliJ IDEA files ###
+.idea/
+*.iml
+*.iws
+*.ipr
+
+### OS-specific files ###
+.DS_Store
+Thumbs.db
+
+### Log files ###
+*.log
+
+### Temporary files ###
+*.swp
+*.swo
+*.bak
+
+### Gradle Wrapper ###
+gradle-wrapper.jar
+gradle-wrapper.properties
+
+### Compiled class files ###
+*.class
+
+### JetBrains Rider ###
+.idea/.idea_modules/
+
+### IntelliJ project files ###
+out/
