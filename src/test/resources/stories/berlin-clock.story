@@ -44,5 +44,33 @@ RRRR
 OOOOOOOOOOO
 OOOO
 
+Scenario: Null time
+    When the time is null
+    Then the clock should throw an error "Invalid time format"
+
+Scenario: Empty time value
+    When the time is ""
+    Then the clock should throw an error "Invalid time format"
+
+Scenario: Invalid time format (with dots instead of colons)
+    When the time is 23.34.34
+    Then the clock should throw an error "Invalid time format"
+
+Scenario: Invalid hour value (greater than 24)
+    When the time is 25:30:45
+    Then the clock should throw an error "Invalid time format"
+
+Scenario: Invalid minute value (greater than 59)
+    When the time is 12:60:30
+    Then the clock should throw an error "Invalid time format"
+
+Scenario: Invalid second value (greater than 59)
+    When the time is 12:30:60
+    Then the clock should throw an error "Invalid time format"
+
+Scenario: Invalid time format (non-numeric value)
+    When the time is "abc:def:ghi"
+    Then the clock should throw an error "Invalid time format"
+
 
 
