@@ -1,0 +1,13 @@
+Command to execute test with cucumber CLI plugin:
+./gradlew cucumberCli
+
+Removed this invalid scenario
+------->
+Scenario: Midnight (24-hour clock format)
+When the time is 24:00:00
+Then the clock should look like
+| Y |
+| RRRR |
+| RRRR |
+| OOOOOOOOOOO |
+| OOOO |

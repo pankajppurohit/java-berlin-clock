@@ -27,12 +27,33 @@ dependencies {
     implementation 'org.slf4j:slf4j-log4j12:1.7.5',
             'log4j:log4j:1.2.17'
 
-    testImplementation 'org.mockito:mockito-core:5.15.2',
-            'org.assertj:assertj-core:3.27.3',
-            'commons-io:commons-io:2.18.0',
-            'org.jbehave:jbehave-core:5.2.0'
+    // Cucumber dependencies
+    testImplementation 'io.cucumber:cucumber-java:7.11.0'
+    testImplementation 'io.cucumber:cucumber-junit:7.11.0'
+
     // Jupiter api and engine dependencies
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.3'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.3'
+    testImplementation 'org.junit.vintage:junit-vintage-engine:5.9.3'
+}
 
+configurations {
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
+}
+
+task cucumberCli() {
+    dependsOn assemble, testClasses
+    doLast {
+        javaexec {
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = [
+                    '--plugin', 'pretty',
+                    '--plugin', 'html:target/cucumber-report.html',
+                    '--glue', 'com.baeldung.cucumber',
+                    'src/test/resources']
+        }
+    }
 }
